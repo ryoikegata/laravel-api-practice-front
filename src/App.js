@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [labels, setLabels] = useState([]);
 
 
 
@@ -14,10 +15,16 @@ function App() {
       .get("http://localhost:8080/api/todos")
       .then((response) => setTodos(response.data))
       .catch((error) => console.log(error));
-  }, [todos]);
+    axios
+      .get("http://localhost:8080/api/todo_labels")
+      .then((response) => setLabels(response.data))
+      .catch((error) => console.log(error));
+  }, []);
 
 
   console.log(todos);
+  console.log(labels);
+
 
 
   function deleteTodo (todo) {
