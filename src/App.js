@@ -3,6 +3,7 @@ import './App.css';
 import 'axios';
 import axios from 'axios';
 import { useState } from 'react';
+import CreateForm from './components/CreateForm';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -22,8 +23,6 @@ function App() {
   }, []);
 
 
-  console.log(todos);
-  console.log(labels);
 
 
 
@@ -61,7 +60,7 @@ function App() {
   }
   
   return (
-    <>
+    <div className='bg-gray-300 w-full h-screen'>
     <div>
       <h1>TodoList</h1>
     </div>
@@ -75,7 +74,10 @@ function App() {
         </div>
       ))}
     </div>
-    </>
+    <div>
+      <CreateForm labels={labels} setTodos={setTodos} todos={todos} />
+    </div>
+    </div>
   );
 }
 
