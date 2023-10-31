@@ -52,17 +52,12 @@ function App() {
       completed: updatedComplete,
     })
     .then((response) => {
-      const updatedTodo = response.data;
-      console.log(updatedTodo);
+      const updatedTodo = response.data.todo;
     setTodos((prevTodos) => {
-      // 前回の状態をもとに新しいToDoリストを生成
-      return prevTodos.map((t) => {
-        if (t.id === updatedTodo.id) {
-          return updatedTodo;
-        } else {
-          return t;
-        }
-      });
+      // 前回の状態をもとに新しいToDoを生成
+      return prevTodos.map((prevTodo) =>
+      prevTodo.id === todo.id ? updatedTodo : prevTodo
+    );
     });
     })
     .catch((error) => {
