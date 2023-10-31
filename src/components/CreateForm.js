@@ -10,7 +10,7 @@ const CreateForm = ({ labels, setTodos, todos }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    label_id: '', // デフォルトの選択肢を設定するか、選択可能な選択肢から選ぶ
+    label_id: 1, // デフォルトの選択肢を設定するか、選択可能な選択肢から選ぶ
     completed: false,
     });
     const handleChange = (e) => {
@@ -25,15 +25,14 @@ const CreateForm = ({ labels, setTodos, todos }) => {
     axios
       .post("http://localhost:8080/api/todos", formData)
       .then((response) => {
-        // サーバーの更新が成功したら、ローカルのToDoアイテムも更新
-        const newTodo = response.data;
-        setTodos([...todos, newTodo]);
         setFormData({
           title: '',
           description: '',
-          label_id: '',
+          label_id: 1,
           completed: false,
         });
+        const newTodo = response.data.todo;
+        setTodos((prevTodos) => [...prevTodos, newTodo]);
       })
       .catch((error) => {
         console.log("ToDoの作成に失敗しました", error);

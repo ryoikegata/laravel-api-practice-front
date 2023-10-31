@@ -20,7 +20,7 @@ function App() {
       .get("http://localhost:8080/api/todo_labels")
       .then((response) => setLabels(response.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [setTodos]);
 
 
 
@@ -48,17 +48,32 @@ function App() {
   
     // サーバーに更新を送信
     axios.put(`http://localhost:8080/api/todos/${todo.id}`, {
+      ...todo,
       completed: updatedComplete,
     })
     .then((response) => {
-      // サーバーの更新が成功したら、ローカルのToDoアイテムも更新
-      todo.completed = updatedComplete;
+      const updatedTodo = response.data;
+      console.log(updatedTodo);
+    setTodos((prevTodos) => {
+      // 前回の状態をもとに新しいToDoリストを生成
+      return prevTodos.map((t) => {
+        if (t.id === updatedTodo.id) {
+          return updatedTodo;
+        } else {
+          return t;
+        }
+      });
+    });
     })
     .catch((error) => {
       console.error('ToDoの更新に失敗しました', error);
     });
   }
   
+
+  const clickEvent = () => {
+    alert("hello");
+  }
   return (
     <div className='bg-gray-300 w-full h-screen'>
     <div>
@@ -77,6 +92,7 @@ function App() {
     <div>
       <CreateForm labels={labels} setTodos={setTodos} todos={todos} />
     </div>
+    <button onClick={clickEvent}>click</button>
     </div>
   );
 }
