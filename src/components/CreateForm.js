@@ -40,25 +40,39 @@ const CreateForm = ({ labels, setTodos, todos }) => {
   }
 
   return (
-    <div>
+    <div className="fixed w-1/2 h-40 bottom-0 left-0 bg-white flex justify-center items-center">
       <form  onSubmit={(e) =>createTodo(e)} >
-        <label>
+        <div className="w-full">
+        <label  className="w-full flex gap-2 justify-between font-bold items-center">
+          <p>
           タイトル
-          <input type="text" value={formData.title} onChange={handleChange} name="title" />
+          </p>
+          <input className="bg-gray-300 p-1" type="text" value={formData.title} onChange={handleChange} name="title" />
         </label>
-        <label>
+        </div>
+        <div>
+        <label className="w-full flex gap-2 justify-between font-bold items-center mt-2">
+          <p>
           詳細
-          <input type="text" value={formData.description} onChange={handleChange} name="description" />
+          </p>
+          <input className="bg-gray-300 p-1" type="text" value={formData.description} onChange={handleChange} name="description" />
         </label>
-        <label>
+        </div>
+        <div>
+        <label className="w-full flex gap-2 justify-between font-bold items-center mt-2">
+          <p>
           ラベル
-          <select value={formData.label_id} onChange={handleChange} name="label_id">
+          </p>
+          <select className="bg-gray-300 p-1" value={formData.label_id} onChange={handleChange} name="label_id">
             {labels.map((label) => (
               <option key={label.id} value={label.id}>{label.label}</option>
             ))}
           </select>
         </label>
-        <button type="submit">作成</button>
+        </div>
+        <div className="flex justify-center">
+        <button className="bg-blue-500 py-1 px-5 text-white rounded mt-2" type="submit">作成</button>
+        </div>
       </form>
     </div>
   )
